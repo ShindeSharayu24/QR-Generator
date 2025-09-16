@@ -2,19 +2,21 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>QR Generator</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div class="container">
       <!-- Small GIF/Image preview (centered) -->
-      <div id="preview"></div>
+      <div id="preview" class="preview"></div>
 
-      <h2>QR Generator</h2>
+      <h1>QR Generator</h1>
       <input
         type="text"
         id="qrData"
         placeholder="Enter text, URL, or image/GIF link"
+        aria-label="QR data"
       />
       <button id="generateBtn">Generate QR Code</button>
 
@@ -22,9 +24,8 @@
       <div id="qrcode"></div>
     </div>
 
-    <!-- QR Code Library -->
+    <!-- QR Code Library (reliable CDN) -->
     <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
-
