@@ -87,5 +87,5 @@ button:hover, #downloadBtn:hover {
 @media (max-width: 480px) {
   .container { padding: 16px; }
   input, button, #downloadBtn { font-size: 0.9rem; padding: 9px; }
-  #qrcode img { max-width: 180px; max-height: 180px; }
+  #qrcode img, #qrcode canvas { max-width: 180px; max-height: 180px; }
 }
