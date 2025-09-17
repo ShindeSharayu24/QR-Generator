@@ -43,15 +43,20 @@ document.addEventListener('DOMContentLoaded', () => {
         correctLevel: QRCode.CorrectLevel.H
       });
 
-      // Wait a tiny bit for QR image to render
+      // Wait for QR image/canvas to render
       setTimeout(() => {
-        const qrImg = qrContainer.querySelector('img');
-        if (qrImg) {
+        let qrImg = qrContainer.querySelector('img');
+        let qrCanvas = qrContainer.querySelector('canvas');
+
+        if (qrImg && qrImg.src) {
           downloadBtn.href = qrImg.src;
-          downloadBtn.download = 'qrcode.png';
-          downloadBtn.style.display = 'block';
+        } else if (qrCanvas) {
+          downloadBtn.href = qrCanvas.toDataURL('image/png');
         }
-      }, 200);
+
+        downloadBtn.download = 'qrcode.png';
+        downloadBtn.style.display = 'block';
+      }, 300);
 
     } catch (err) {
       console.error('QR generation error:', err);
