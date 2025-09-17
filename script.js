@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function clearOutputs() {
     qrContainer.innerHTML = '';
     previewContainer.innerHTML = '';
-    downloadBtn.style.display = 'none'; // hide download until new QR is created
+    downloadBtn.style.display = 'none';
   }
 
   function generateQR(data) {
@@ -43,34 +43,23 @@ document.addEventListener('DOMContentLoaded', () => {
         correctLevel: QRCode.CorrectLevel.H
       });
 
-      // Show download button
-      downloadBtn.style.display = 'block';
-
-      // Attach download event
+      // Wait a tiny bit for QR image to render
       setTimeout(() => {
-        const qrCanvas = qrContainer.querySelector('canvas'); 
-        const qrImg = qrContainer.querySelector('img'); 
+        const qrImg = qrContainer.querySelector('img');
+        if (qrImg) {
+          downloadBtn.href = qrImg.src;
+          downloadBtn.download = 'qrcode.png';
+          downloadBtn.style.display = 'block';
+        }
+      }, 200);
 
-        downloadBtn.onclick = () => {
-          let url;
-          if (qrCanvas) {
-            url = qrCanvas.toDataURL("image/png");
-          } else if (qrImg) {
-            url = qrImg.src;
-          }
-
-          const link = document.createElement('a');
-          link.href = url;
-          link.download = 'qr-code.png';
-          link.click();
-        };
-      }, 300); // wait for QR rendering
     } catch (err) {
       console.error('QR generation error:', err);
       alert('Could not generate QR code. Check console for details.');
     }
   }
 
+  // Events
   btn.addEventListener('click', () => generateQR(input.value.trim()));
   input.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') generateQR(input.value.trim());
